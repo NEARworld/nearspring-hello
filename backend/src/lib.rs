@@ -8,12 +8,6 @@ near_sdk::setup_alloc!();
 pub struct Contract {
 }
 
-impl Default for Contract {
-    fn default() -> Self {
-        Self {
-        }
-    }
-}
 
 #[near_bindgen]
 impl Contract {
