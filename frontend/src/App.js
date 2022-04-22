@@ -7,7 +7,6 @@ const CONTRACT_NAME = 'nearspring-hello.decentralworld.testnet'
 const nearConfig = {
   networkId: 'testnet',
   nodeUrl: 'https://rpc.testnet.near.org',
-  contractName: CONTRACT_NAME,
   walletUrl: 'https://wallet.testnet.near.org',
   helperUrl: 'https://helper.testnet.near.org',
   explorerUrl: 'https://explorer.testnet.near.org',
@@ -25,10 +24,14 @@ function App() {
     if (nameInput) {
       try {
         const near = await nearApi.connect(nearConfig)
-        const walletConnection = new nearApi.WalletConnection(near)
-        const contract = new nearApi.Contract(walletConnection.account(), nearConfig.contractName, {
+        //const walletConnection = new nearApi.WalletConnection(near)
+        //const contract = new nearApi.Contract(walletConnection.account(), CONTRACT_NAME, {
+        //  viewMethods: ['getName']
+        //})
+        const contract = new nearApi.contract(await near.account(), CONTRACT_NAME, {
           viewMethods: ['getName']
         })
+        
         const data = await contract.getName({name: nameInput})
         setNameFromBlockchain(data)
         console.log(nameFromBlockchain);
